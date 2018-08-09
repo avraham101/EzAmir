@@ -7,17 +7,18 @@ namespace Amrious2
 {
 	public partial class App : Application
 	{
-		public App ()
+        private NavigationPage navigator;
+        public App ()
 		{
 			InitializeComponent();
-
-			MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
-		}
+            // Handle when your app starts
+            navigator = new NavigationPage(new MainPage());
+            MainPage = navigator;
+        }
 
 		protected override void OnSleep ()
 		{

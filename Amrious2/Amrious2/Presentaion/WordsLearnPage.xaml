@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Amrious2.Presentaion.WordsLearnPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <Grid BackgroundColor="White" RowSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!--Menu Bar-->
+            <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  
+                   BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="False">
+                <Grid ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Clicked="ListClick" Margin="2,2,2,2" 
+                        Text="List" BackgroundColor="#687EA2"/>
+                    <Button Grid.Column="1" Clicked="IndividualClick" Margin="2,2,2,2" 
+                        Text="Individual" BackgroundColor="#687EA2"/>
+                    <Button Grid.Column="2" Margin="2,2,2,2" Clicked="UnderBulidingClick"
+                        Text="Progress" BackgroundColor="#687EA2"/>
+                </Grid>
+            </Frame>
+            <!--List View-->
+            <ListView Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding WordsList}"
+                      BackgroundColor="White" IsVisible="{Binding WordListVisibility}" SeparatorVisibility="None"
+                      ItemSelected="WordListItemSelected" RowHeight="40">
+                <ListView.Header>
+                    <Label Margin="2,0,0,0" HorizontalOptions="Center"
+                            Text="Words List:" FontFamily="casual" TextColor="#FF0066CC" FontSize="Small" FontAttributes="Bold"/>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Frame OutlineColor="Black" Margin="2,2,2,2" Padding="1" HasShadow="False">
+                                    <Grid ColumnSpacing="0" BackgroundColor="#064685">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Frame Grid.Column="0" OutlineColor="Black" Padding="1" BackgroundColor="#66A3E0">
+                                            <Label Margin="2,2,2,2" Text="{Binding GetWord}" BackgroundColor="#66A3E0" FontSize="Medium" TextColor="Black"
+                                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                        </Frame>
+                                        <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="5,0,5,0"
+                                               WidthRequest="15" Text="{Binding GetLevel}" BackgroundColor="#064685" 
+                                               FontAttributes="Bold" FontSize="Small" TextColor="White"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Frame Grid.Row="1" Grid.RowSpan="2" Margin="2,0,2,0" Grid.Column="1"
+                   OutlineColor="Black" Padding="1" IsVisible="{Binding ListCellOptionsVisibilty}" BackgroundColor="#B6D6F5">
+                <Grid Margin="1,1,1,1" RowSpacing="0" WidthRequest="175">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto "/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"
+                           Text="MASTERED" IsVisible="{Binding PickedWordLearned}" FontAttributes="Bold" TextColor="White" BackgroundColor="#0A75DD"/>
+                    <Label Grid.Row="1" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                           Text="{Binding PickedWordName}" BackgroundColor="#66A3E0" FontAttributes="Bold" FontSize="Large"/>
+                    <Label Grid.Row="2" HorizontalTextAlignment="Center"
+                           Text="{Binding PickedWordMeaning}" BackgroundColor="#85BAEE"/>
+                    <Frame Grid.Row="3" Margin="5,5,5,5" Padding="1"
+                           OutlineColor="Black" BackgroundColor="#D3D3D3" HeightRequest="50">
+                        <Button Clicked="WordForgot" 
+                            Text="Not Yet"  BackgroundColor="#D3D3D3"/>
+                    </Frame>
+                    <Frame Grid.Row="4" Margin="5,5,5,5" Padding="1"
+                           OutlineColor="Black" BackgroundColor="#D3D3D3" HeightRequest="50">
+                        <Button Clicked="WordMastered"
+                            Text="Mastered" BackgroundColor="#D3D3D3"/>
+                    </Frame>
+
+                </Grid>
+            </Frame>
+            <!--Indivitaul View-->
+            <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                  IsVisible="{Binding IndividualVisibilty}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0" Padding="1" HasShadow="False"
+                           BackgroundColor="#66A3E0" OutlineColor="Black" IsVisible="{Binding IndivitualWordVisibilty}"  RotationX="{Binding RotationXWord}" >
+                        <Grid BackgroundColor="#66A3E0" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Row="0" Clicked="WordIndividualItemClick" 
+                            Text="{Binding PickedWordName}" FontSize="Large" BackgroundColor="#66A3E0"/>
+                            <Label  Grid.Row="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Start"
+                                    Text="MASTERED" IsVisible="{Binding PickedWordLearned}" FontAttributes="Bold" TextColor="White" BackgroundColor="#66A3E0"/>
+                        </Grid>
+                    </Frame>
+                    <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Margin="2,0,2,0" Padding="1" HasShadow="False" 
+                           BackgroundColor="#99C2EB" OutlineColor="Black" IsVisible="{Binding IndivitualMeaningdVisibilty}"  RotationX="{Binding RotationXMeaning}">
+                        <Grid BackgroundColor="#99C2EB" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Row="0" Clicked="WordIndividualItemClick"  
+                                Text="{Binding PickedWordName}" FontSize="Large" BackgroundColor="#66A3E0" />
+                            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" 
+                               Text="{Binding PickedWordMeaning}" FontSize="Medium" BackgroundColor="#99C2EB" />
+                            <Label  Grid.Row="2" HorizontalTextAlignment="Start" Margin="2,0,0,0"
+                                    Text="{Binding PickedWordLearnedDate}" IsVisible="{Binding PickedWordLearned}" FontAttributes="Bold" TextColor="White" BackgroundColor="#99C2EB"/>
+                        </Grid>
+                    </Frame>
+                    <Button Grid.Row="1" Grid.Column="0" Clicked="WordIndividualPrevClick"
+                            FontSize="Large" Text="←"/>
+                    <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" 
+                           Text="{Binding PickedWordIndex}" FontSize="Medium"/>
+                    <Button Grid.Row="1" Grid.Column="3" Clicked="WordIndividualNextClick"
+                            FontSize="Large" Text="→"/>
+                </Grid>
+                <Grid Grid.Row="1" ColumnSpacing="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Column="1" Margin="2,2,2,2" Padding="1"
+                           OutlineColor="Black" BackgroundColor="#D3D3D3" HeightRequest="60">
+                        <Button Clicked="WordMastered"
+                            Text="Mastered" BackgroundColor="#D3D3D3"/>
+                    </Frame>
+                    <Frame Grid.Column="0" Margin="2,2,2,2" Padding="1"
+                           OutlineColor="Black" BackgroundColor="#D3D3D3" HeightRequest="60">
+                        <Button Clicked="WordForgot" 
+                            Text="Not Yet"  BackgroundColor="#D3D3D3"/>
+                    </Frame>
+                </Grid>
+            </Grid>
+            <!--Logo-->
+            <Label Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
+               Text="EzAmir" BackgroundColor="#FF0066CC" TextColor="White" FontSize="20" FontAttributes="Bold" FontFamily="cursive" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

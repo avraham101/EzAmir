@@ -10,14 +10,47 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Presentaion\MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Items\BasicWord.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Items\Catagory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Items\Word.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\WordsLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Binders\BinderWordsPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Binders\BinderMainPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Binders\BinderWordLearning.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Items\WordsGroupItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\WordsLearnPage.xaml.cs">
+      <DependentUpon>WordsLearnPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\WordsPage.xaml.cs">
+      <DependentUpon>WordsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Items\ToDoListItem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Presentaion\WordsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Logic\Items\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Presistent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Presentaion\WordsLearnPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

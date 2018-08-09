@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Amrious2.WordsPage"
+             Title="Words">
+    <Grid BackgroundColor="#CCE0F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Column="0" Grid.Row="1" Margin="2,0,-3,0" ItemsSource="{Binding WordsGroups}"
+                  BackgroundColor="White">
+            <ListView.Header>
+                <Label Margin="2,0,0,0" HorizontalOptions="Center"
+                       Text="Letters:" FontFamily="casual" TextColor="#FF0066CC" FontSize="Medium" FontAttributes="Bold"/>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="2,2,0,2" Clicked="LetterClick"
+                                        Text="{Binding ButtonText}" WidthRequest="80" FontAttributes="Bold" BackgroundColor="#FF0066CC" TextColor="White"/>
+                                <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,2,2,2" 
+                                       Text="{Binding LabelText}" FontSize="Small" BackgroundColor="White" TextColor="Black"/>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Column="1" Grid.Row="1" Margin="-3,0,2,0" ItemsSource="{Binding WordsLevels}"
+                  BackgroundColor="White">
+            <ListView.Header>
+                <Label Margin="2,0,0,0" HorizontalOptions="Center"
+                       Text="Levels:" FontFamily="casual" TextColor="#FF0066CC" FontSize="Medium" FontAttributes="Bold"/>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="2,2,0,2" Clicked="LevelClick"
+                                        Text="{Binding ButtonText}" WidthRequest="80" FontAttributes="Bold" BackgroundColor="#FF0066CC" TextColor="White"/>
+                                <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,2,2,2" 
+                                       Text="{Binding LabelText}" FontSize="Small" BackgroundColor="White" TextColor="Black"/>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Center" BackgroundColor="Yellow">
+            <Label Text="Satistics: how many words learned and how many left to learn and etc.." />
+        </Grid>
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
+               Text="EzAmir" BackgroundColor="#FF0066CC" TextColor="White" FontSize="20" FontAttributes="Bold" FontFamily="cursive" />
+    </Grid>
+</ContentPage>
