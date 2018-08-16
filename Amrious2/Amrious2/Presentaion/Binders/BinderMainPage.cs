@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
-using Xamarin.Forms;
 using System.Runtime.CompilerServices;
 
 namespace Amrious2.Presentaion

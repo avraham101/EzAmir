@@ -7,8 +7,7 @@ namespace Amrious2.Logic
     [Serializable]
     public class Word : BasicWord
     {
-        
-
+        //Builders
         public Word(String word, String meaning,int index) : base(word,meaning,index)
         {
         }
@@ -39,5 +38,6 @@ namespace Amrious2.Logic
             wordLearnedDate = new DateTime();
             learned = false;
         }
+
     }
 }

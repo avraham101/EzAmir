@@ -6,25 +6,25 @@ namespace Amrious2.Logic
 {
     public class BasicWord 
     {
-        protected DateTime wordLearnedDate;
-        protected int level; //1 to 4. easy - hard
+        protected String word; //the word
+        protected String meaning; //the meaning
         protected char catagory; // first letter of the word in Upper
         protected int index; //the index of the word
-        protected String word;
-        protected String meaning;
-        protected Boolean learned;
-        
+        protected int level; //1 to 4. easy - hard
+        protected Boolean learned; //status of the word
+        protected DateTime wordLearnedDate; //the date the word learned 
+
         public BasicWord(String word, String meaning,int index)
         {
             if (String.IsNullOrWhiteSpace(word) || String.IsNullOrWhiteSpace(meaning))
                 throw new Exception("Word isn't valid");
-            this.word = word;
+            this.word = RemoveAllSpaces(word);
             this.meaning = meaning;
             this.index = index;
             catagory = char.ToUpper(word[0]);
             level = 1;
             learned = false;
-            wordLearnedDate = new DateTime(0,0,0);
+            wordLearnedDate = new DateTime();
         }
 
         public BasicWord(String word, String meaning, int index, int level)
@@ -32,7 +32,7 @@ namespace Amrious2.Logic
             if (String.IsNullOrWhiteSpace(word) || String.IsNullOrWhiteSpace(meaning)
                 || level < 0 || level > 4)
                 throw new Exception("Word or Level isn't valid");
-            this.word = word;
+            this.word = RemoveAllSpaces(word);
             this.meaning = meaning;
             this.index = index;
             this.level = level;
@@ -46,7 +46,7 @@ namespace Amrious2.Logic
             if (String.IsNullOrWhiteSpace(word) || String.IsNullOrWhiteSpace(meaning)
                 || level < 0 || level > 4)
                 throw new Exception("Word or Level or Associations or learned isn't valid");
-            this.word = word;
+            this.word = RemoveAllSpaces(word);
             this.meaning = meaning;
             this.index = index;
             this.level = level;
@@ -62,10 +62,30 @@ namespace Amrious2.Logic
             level = other.level;
             catagory = other.catagory;
             index = other.index;
-            word = other.word;
+            word = RemoveAllSpaces(other.word);
             meaning = other.meaning;
             learned = other.learned;
             wordLearnedDate = other.wordLearnedDate;
+        }
+
+        //the function remove all spaces from a string
+        private String RemoveAllSpaces(String value)
+        {
+            if (String.IsNullOrWhiteSpace(value))
+                throw new Exception("the string value is null or empty");
+            int counter = 0;
+            //remove spacing from the start
+            for (int i=0;i<value.Length;i++)
+            {
+                string a = ""+value[i];
+                if (string.IsNullOrWhiteSpace(a))
+                    counter++;
+                else 
+                    break;
+            }
+            value = value.Substring(counter);
+            //remove spasing from the end --missing
+            return value;
         }
 
         //Getters
@@ -98,6 +118,11 @@ namespace Amrious2.Logic
         public DateTime GetDate
         {
             get { return wordLearnedDate; }
+        }
+
+        public String ToString()
+        {
+            return word + "(" + index +"/"+catagory+ ") " + " : " + meaning;
         }
     }
 }
