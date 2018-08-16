@@ -21,7 +21,7 @@ namespace Amrious2.Logic
             this.word = RemoveAllSpaces(word);
             this.meaning = meaning;
             this.index = index;
-            catagory = char.ToUpper(word[0]);
+            catagory = char.ToUpper(this.word[0]);
             level = 1;
             learned = false;
             wordLearnedDate = new DateTime();
@@ -36,7 +36,7 @@ namespace Amrious2.Logic
             this.meaning = meaning;
             this.index = index;
             this.level = level;
-            catagory = char.ToUpper(word[0]);
+            catagory = char.ToUpper(this.word[0]);
             learned = false;
             wordLearnedDate = new DateTime(0, 0, 0);
         }
@@ -51,7 +51,7 @@ namespace Amrious2.Logic
             this.index = index;
             this.level = level;
             this.learned = learned;
-            catagory = char.ToUpper(word[0]);
+            catagory = char.ToUpper(this.word[0]);
             wordLearnedDate = new DateTime();
         }
 
