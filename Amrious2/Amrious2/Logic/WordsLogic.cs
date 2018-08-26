@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Amrious2.Presistent;
 namespace Amrious2.Logic
 {
     public class WordsLogic
     {
+        private WordsKepper kepper;
         private enum State { Letter, Level, None};
         private State state;
         private List<Word>[] words; // Array of Lists of all the words by first Letter
@@ -34,16 +35,18 @@ namespace Amrious2.Logic
             _listPicked = null;
             _listpickedindex = 0;
             //need to call from presistent
-            words[0] = new List<Word>();
+            kepper = new WordsKepper();
+            words[0] = kepper.GetWordList();
             for (int i = 0; i < 4; i++)
                 levels[i] = new List<Word>();
             for (int i = 0; i < 30; i++)
             {
-                if(i%5==0)
+                /*if(i%5==0)
                     words[0].Add(new Word("a" + (char)('a' + i), "" + i, i, i % 4 + 1, true, DateTime.Now));
                 else
                     words[0].Add(new Word("a" + (char)('a' + i), "" + i, i, i % 4 + 1, false));
-                levels[i % 4].Add(words[0][i]); //Must be pointer
+                */
+                levels[i % 4].Add(new Word("a" + (char)('a' + i), "" + i, i, i % 4 + 1, true, DateTime.Now)); //Must be pointer
             }
         }
 

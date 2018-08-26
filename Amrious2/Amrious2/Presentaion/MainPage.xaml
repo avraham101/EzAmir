@@ -11,16 +11,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <!--Image Grid.Row="0" Grid.Column="0" HeightRequest="80" WidthRequest="200"
+               Source="logo.png" BackgroundColor="White" Aspect="Fill" /-->
         <Label Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
                Text="EzAmir" BackgroundColor="White" TextColor="#FF0066CC" FontSize="60" FontAttributes="Bold" FontFamily="cursive" />
-        <Label Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
-               Text="The first step of success" BackgroundColor="White" TextColor="#FF0066CC" FontSize="Medium" FontFamily="David" />
-        <Grid Grid.Row="2" Grid.Column="0" 
+        <Grid Grid.Row="1" Grid.Column="0" 
               BackgroundColor="White" RowSpacing="2" ColumnSpacing="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -33,30 +32,30 @@
             <Frame Grid.Row="0" Grid.Column="0" Margin="2,0,2,0"
                    BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="False">
                 <Button Clicked="WordsClick" Text="Words" BackgroundColor="#FF0066CC" 
-                        TextColor="White" FontAttributes="Bold" FontSize="Large" />
+                        TextColor="White" Image="wordsicon.png" FontAttributes="Bold" FontSize="Large" />
             </Frame>
             <Frame Grid.Row="0" Grid.Column="1" Margin="2,0,2,0"
                    BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="False">
                 <Button Clicked="UnderBulidingClick" Text="Schedule" BackgroundColor="#FF0066CC" 
-                        TextColor="White" FontAttributes="Bold" FontSize="Large" />
+                        TextColor="White" Image ="scheduleicon.png" FontAttributes="Bold" FontSize="Medium" />
             </Frame>
             <Frame Grid.Row="1" Grid.Column="0" Margin="2,0,2,0"
                    BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="False">
                 <Button Clicked="UnderBulidingClick" Text="Reading" BackgroundColor="#FF0066CC" 
-                        TextColor="White" FontAttributes="Bold" FontSize="Large" />
+                        TextColor="White" Image="readingicon.png" FontAttributes="Bold" FontSize="Large" />
             </Frame>
             <Frame Grid.Row="1" Grid.Column="1" Margin="2,0,2,0"
                    BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="False">
                 <Button Clicked="UnderBulidingClick" Text="Notes" BackgroundColor="#FF0066CC" 
-                        TextColor="White" FontAttributes="Bold" FontSize="Large" />
+                        TextColor="White" Image="notesicon.png" FontAttributes="Bold" FontSize="Large" />
             </Frame>
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="0" BackgroundColor="#FF0066CC" Margin="2,0,2,0">
+        <Grid Grid.Row="2" Grid.Column="0" BackgroundColor="#FF0066CC" Margin="2,0,2,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ToDoList}">
                 <ListView.Header>

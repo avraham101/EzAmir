@@ -36,6 +36,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Items\ToDoListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presistent\WordsKepper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Presentaion\WordsPage.xaml">
@@ -44,13 +45,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Images\" />
     <Folder Include="$(MSBuildThisFileDirectory)Logic\Items\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Presistent\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Presentaion\WordsLearnPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)words.bin" />
   </ItemGroup>
 </Project>

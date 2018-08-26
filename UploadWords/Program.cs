@@ -22,7 +22,11 @@ namespace UploadWords
             Console.InputEncoding = Encoding.GetEncoding(1255);
             Console.OutputEncoding = Encoding.GetEncoding(1255);
             CreateUmls();
-            ReadExcelFolders();
+            Boolean result = SaveWordList(ReadExcelFolders(),uml);
+            if (result)
+                Console.WriteLine("---------------Word List Saved to bin---------------");
+            else
+                Console.WriteLine("---------------Something broken---------------");
             Console.ReadKey();
         }
 
@@ -105,64 +109,65 @@ namespace UploadWords
             return output;
         }
 
-        /*public List<User> ReadUsers()
+        //function that save the List<Word> to bin
+        private static Boolean SaveWordList(List<Word> list,String uml)
         {
             try
             {
-                using (Stream stream = File.Open(uml, FileMode.Open))
+                using (Stream stream = File.OpenWrite(uml))
                 {
-                    // path, FileMode.Open, FileAccess.Write, FileShare.Read);
                     BinaryFormatter bin = new BinaryFormatter();
-                    List<User> a = (List<User>)bin.Deserialize(stream);
-                    stream.Dispose();
-                    return a;
+                    bin.Serialize(stream, list);
+                    stream.Close();
                 }
             }
-            catch (Exception e)
+            catch
             {
-                log.Error("Cant read User List bin", e);
+                return false;
             }
-            return null;
+            return true;
         }
 
-        /*public Boolean SaveListUsers(List<User> list)
-            {
-                try
-                {
-                    using (Stream stream = File.OpenWrite(uml))
-                    {
-                        BinaryFormatter bin = new BinaryFormatter();
-                        bin.Serialize(stream, list);
-                        stream.Close();
-                    }
-                }
-                catch
-                {
-                    log.Error("Cant save User List bin");
-                    return false;
-                }
-                return true;
-            }
 
-        public Boolean SaveHistory(List<Message> list)
+    /*public List<User> ReadUsers()
+    {
+        try
+        {
+            using (Stream stream = File.Open(uml, FileMode.Open))
             {
-                try
-                {
-                    using (Stream stream = File.OpenWrite(uml2))
-                    {
-                        BinaryFormatter bin = new BinaryFormatter();
-                        bin.Serialize(stream, list);
-                        stream.Close();
-                    }
-                }
-                catch
-                {
-                    log.Error("Cant save History List bin");
-                    return false;
-                }
-                return true;
+                // path, FileMode.Open, FileAccess.Write, FileShare.Read);
+                BinaryFormatter bin = new BinaryFormatter();
+                List<User> a = (List<User>)bin.Deserialize(stream);
+                stream.Dispose();
+                return a;
             }
-
-        */
         }
+        catch (Exception e)
+        {
+            log.Error("Cant read User List bin", e);
+        }
+        return null;
+    }
+
+    public Boolean SaveHistory(List<Message> list)
+        {
+            try
+            {
+                using (Stream stream = File.OpenWrite(uml2))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    bin.Serialize(stream, list);
+                    stream.Close();
+                }
+            }
+            catch
+            {
+                log.Error("Cant save History List bin");
+                return false;
+            }
+            return true;
+        }
+
+    */
+    }
 }

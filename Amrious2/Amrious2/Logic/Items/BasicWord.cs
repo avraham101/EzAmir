@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Amrious2.Logic
 {
+    [Serializable]
     public class BasicWord 
     {
         protected String word; //the word
