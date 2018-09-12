@@ -18,7 +18,6 @@ namespace UploadWords
         //the main
         static void Main(string[] args)
         {
-            //Word a = new Word("ofir noni", "אופיר נוני", 5);
             Console.InputEncoding = Encoding.GetEncoding(1255);
             Console.OutputEncoding = Encoding.GetEncoding(1255);
             CreateUmls();
@@ -33,7 +32,7 @@ namespace UploadWords
         //function that create the umls and ready the files to work
         private static void CreateUmls()
         {
-            uml = "Words.bin"; //The words for the application
+            uml = "words.bee"; //The words for the application
             uml2 = "C:\\Users\\avrah\\Desktop\\Amir Project\\wordstest.xlsm"; //The words save in the computer folder or file
             CreateNewFiles();
         }
@@ -64,8 +63,10 @@ namespace UploadWords
                     output.AddRange(ReadExcelWords(e,output.Count));
             }
             Console.WriteLine("List of Words");
-            foreach (Word w in output)
-                Console.WriteLine(w.ToString());
+            //output = output.OrderBy(e => e.GetCatagory).ToList();
+            output = output.OrderBy(e => e.GetWord).ToList();
+            //foreach (Word w in output)
+            //    Console.WriteLine(w.ToString());
             return output;
         }
 
@@ -117,7 +118,8 @@ namespace UploadWords
                 using (Stream stream = File.OpenWrite(uml))
                 {
                     BinaryFormatter bin = new BinaryFormatter();
-                    bin.Serialize(stream, list);
+                    //bin.Serialize(stream, list);
+                    bin.Serialize(stream, CreateArrayLists(list));
                     stream.Close();
                 }
             }
@@ -128,46 +130,19 @@ namespace UploadWords
             return true;
         }
 
-
-    /*public List<User> ReadUsers()
-    {
-        try
+        //the function create from the list of all words an array of lists
+        private static List<Word>[] CreateArrayLists(List<Word> input)
         {
-            using (Stream stream = File.Open(uml, FileMode.Open))
+            List<Word>[] output = new List<Word>[26];
+            for (int i = 0; i < 26; i++)
+                output[i] = new List<Word>();
+            for(int i=0;i<input.Count;i++)
             {
-                // path, FileMode.Open, FileAccess.Write, FileShare.Read);
-                BinaryFormatter bin = new BinaryFormatter();
-                List<User> a = (List<User>)bin.Deserialize(stream);
-                stream.Dispose();
-                return a;
+                Word w = input[i];
+                output[w.GetCatagory - 'A'].Add(w);
+                Console.WriteLine((w.GetCatagory - 'A') +" Save into Array List; "+w.ToString());
             }
+            return output;
         }
-        catch (Exception e)
-        {
-            log.Error("Cant read User List bin", e);
-        }
-        return null;
-    }
-
-    public Boolean SaveHistory(List<Message> list)
-        {
-            try
-            {
-                using (Stream stream = File.OpenWrite(uml2))
-                {
-                    BinaryFormatter bin = new BinaryFormatter();
-                    bin.Serialize(stream, list);
-                    stream.Close();
-                }
-            }
-            catch
-            {
-                log.Error("Cant save History List bin");
-                return false;
-            }
-            return true;
-        }
-
-    */
     }
 }

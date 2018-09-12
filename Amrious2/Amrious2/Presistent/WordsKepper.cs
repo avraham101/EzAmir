@@ -9,31 +9,58 @@ namespace Amrious2.Presistent
 {
     public class WordsKepper
     {
-        private String uml;
+        private List<Word>[] arraylist;
+        //builder
         public WordsKepper()
         {
-            uml = "words.bin";
+            ReadListOfWords();
         }
 
-        public List<Word> GetWordList()
+        //the function Read The data from Assents Android and Check if something not broken
+        //in the future need to insure which platform we work on android,ios,windows
+        private void ReadListOfWords()
+        {
+            arraylist = new List<Word>[26];
+            try
+            {
+                arraylist = Amrious2.Droid.MainActivity.list;
+            }
+            catch (Exception e)
+            {
+                for (int i = 0; i < arraylist.Length; i++)
+                {
+                    arraylist[i] = new List<Word>();
+                    arraylist[i].Add(new Word("Cant create the class", "Fail", 1));
+                }
+            }
+        }
+
+        //The function return the List from the Assents
+        public List<Word>[] GetArrayWordList()
+        {
+            return arraylist;
+        }
+
+        //the function get index in the Array and Return the list from it
+        public List<Word> GetWordList(int index)
         {
             List<Word> output = new List<Word>();
             try
             {
-                using (Stream stream = File.Open(uml, FileMode.Open))
-                {
-                    // path, FileMode.Open, FileAccess.Write, FileShare.Read);
-                    BinaryFormatter bin = new BinaryFormatter();
-                    output = (List<Word>)bin.Deserialize(stream);
-                    stream.Dispose();
-                }
+                //output = Amrious2.Droid.MainActivity.list;
+                if (arraylist != null)
+                    output = arraylist[index];
+                else
+                    throw new Exception("Somthing Broken");
             }
-            catch (Exception e)
+            catch ( Exception e)
             {
-                //log.Error("Cant read User List bin", e);
-                output.Add(new Word("Fail! Fail! Fail!","Didnt read the words.bin",1000));
+                output = new List<Word>();
+                output.Add(new Word("Cant create the class", "Fail", 1));
             }
             return output;
         }
+
+
     }
 }

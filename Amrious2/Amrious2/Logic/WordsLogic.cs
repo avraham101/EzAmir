@@ -10,6 +10,8 @@ namespace Amrious2.Logic
         private enum State { Letter, Level, None};
         private State state;
         private List<Word>[] words; // Array of Lists of all the words by first Letter
+        
+        //neeed to be delet the levels. dont help.
         private List<Word>[] levels; // Array of Lists of all the words by level
 
         private char _letter; //picked letter in Upper Mode
@@ -30,24 +32,19 @@ namespace Amrious2.Logic
             state = State.None;
             _level = 1;
             _letter = 'A';
-            words = new List<Word>[26]; //26 letters    
             levels = new List<Word>[4]; //4 levels
             _listPicked = null;
             _listpickedindex = 0;
             //need to call from presistent
             kepper = new WordsKepper();
-            words[0] = kepper.GetWordList();
+            words = kepper.GetArrayWordList(); //26 letters    
+
+            //words[0] = kepper.GetWordList();
             for (int i = 0; i < 4; i++)
                 levels[i] = new List<Word>();
             for (int i = 0; i < 30; i++)
-            {
-                /*if(i%5==0)
-                    words[0].Add(new Word("a" + (char)('a' + i), "" + i, i, i % 4 + 1, true, DateTime.Now));
-                else
-                    words[0].Add(new Word("a" + (char)('a' + i), "" + i, i, i % 4 + 1, false));
-                */
                 levels[i % 4].Add(new Word("a" + (char)('a' + i), "" + i, i, i % 4 + 1, true, DateTime.Now)); //Must be pointer
-            }
+            
         }
 
         //get the catagories

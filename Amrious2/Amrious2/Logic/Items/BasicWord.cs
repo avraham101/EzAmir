@@ -121,9 +121,15 @@ namespace Amrious2.Logic
             get { return wordLearnedDate; }
         }
 
+        public Char GetCatagory
+        {
+            get { return catagory; }
+        }
+
         public String ToString()
         {
             return word + "(" + index +"/"+catagory+ ") " + " : " + meaning;
         }
+
     }
 }
