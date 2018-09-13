@@ -283,7 +283,6 @@ namespace Amrious2.Presentaion
             PickedWordMeaning = tmp.GetMeaning;
             PickedWordIndex = logicer.GetIndexWord() + "/" + _wordslist.Count;//logicer.GetIndexWord() + "/" + _wordslist.Count;
             _pickedWordIndex = tmp.GetIndex;
-            PickedWordlevel = "Level "+tmp.GetLevel;
             PickedWordLearned = tmp.IsWordLearned;
             PickedWordLearnedDate = tmp.GetDate.ToLongDateString();
         }

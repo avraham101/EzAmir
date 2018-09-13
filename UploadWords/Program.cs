@@ -139,6 +139,7 @@ namespace UploadWords
             for(int i=0;i<input.Count;i++)
             {
                 Word w = input[i];
+                w.SetIndex(output[w.GetCatagory - 'A'].Count+ 1);
                 output[w.GetCatagory - 'A'].Add(w);
                 Console.WriteLine((w.GetCatagory - 'A') +" Save into Array List; "+w.ToString());
             }

@@ -56,7 +56,7 @@
                                                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                         </Frame>
                                         <Label Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="5,0,5,0"
-                                               WidthRequest="15" Text="{Binding GetLevel}" BackgroundColor="#064685" 
+                                               WidthRequest="25" Text="{Binding GetIndex}" BackgroundColor="#064685" 
                                                FontAttributes="Bold" FontSize="Small" TextColor="White"/>
                                     </Grid>
                                 </Frame>
@@ -167,7 +167,7 @@
             </Grid>
             <!--Logo-->
             <Label Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
-               Text="EzAmir" BackgroundColor="#FF0066CC" TextColor="White" FontSize="20" FontAttributes="Bold" FontFamily="cursive" />
+               Text="EzAmir" BackgroundColor="#FF0066CC" TextColor="White" FontSize="10" FontAttributes="Bold" FontFamily="cursive" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

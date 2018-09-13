@@ -48,7 +48,8 @@ namespace Amrious2
             }
         }
 
-        void LevelClick(object sender, EventArgs e)
+        //need to be deleted
+        /*void LevelClick(object sender, EventArgs e)
         {
             if (sender != null)
             {
@@ -68,7 +69,7 @@ namespace Amrious2
                         DisplayAlert("Un avilable Path", "There is no words left", "Ok");
                 }
             }
-        }
+        }*/
 
         //move to the next screen
         private void MoveToLearnScreen()

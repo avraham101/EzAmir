@@ -6,20 +6,18 @@
     <Grid BackgroundColor="#CCE0F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" Grid.Row="1" Margin="2,0,-3,0" ItemsSource="{Binding WordsGroups}"
+        <Label Margin="0,0,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="0" Grid.Row="1"
+                       Text="Letters" FontFamily="casual" TextColor="#FF0066CC" FontSize="20" FontAttributes="Bold"/>
+        <ListView Grid.Column="0" Grid.Row="2" Margin="2,0,-3,0" ItemsSource="{Binding WordsGroups}"
                   BackgroundColor="White">
-            <ListView.Header>
-                <Label Margin="2,0,0,0" HorizontalOptions="Center"
-                       Text="Letters:" FontFamily="casual" TextColor="#FF0066CC" FontSize="Medium" FontAttributes="Bold"/>
-            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -39,33 +37,21 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Column="1" Grid.Row="1" Margin="-3,0,2,0" ItemsSource="{Binding WordsLevels}"
-                  BackgroundColor="White">
-            <ListView.Header>
-                <Label Margin="2,0,0,0" HorizontalOptions="Center"
-                       Text="Levels:" FontFamily="casual" TextColor="#FF0066CC" FontSize="Medium" FontAttributes="Bold"/>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Margin="2,2,0,2" Clicked="LevelClick"
-                                        Text="{Binding ButtonText}" WidthRequest="80" FontAttributes="Bold" BackgroundColor="#FF0066CC" TextColor="White"/>
-                                <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,2,2,2" 
-                                       Text="{Binding LabelText}" FontSize="Small" BackgroundColor="White" TextColor="Black"/>
-                            </Grid>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Center" BackgroundColor="Yellow">
-            <Label Text="Satistics: how many words learned and how many left to learn and etc.." />
+        <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="1" BackgroundColor="#0071E2" Margin="2,0,2,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Margin="0,0,0,0" HorizontalOptions="Fill" HorizontalTextAlignment="Center" VerticalOptions="Fill" Grid.Row="0"
+                       Text="Options" FontFamily="casual" TextColor="White" BackgroundColor="#003E7C" FontSize="Medium" FontAttributes="Bold"/>
+            <Button Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="1"
+                       Text="1" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+            <Button Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="2"
+                       Text="2" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+            <Button Margin="5,2,5,4" HorizontalOptions="Fill" Grid.Row="3"
+                       Text="3" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
         </Grid>
         <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
                Text="EzAmir" BackgroundColor="#FF0066CC" TextColor="White" FontSize="20" FontAttributes="Bold" FontFamily="cursive" />

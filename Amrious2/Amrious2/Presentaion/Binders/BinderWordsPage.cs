@@ -29,35 +29,16 @@ namespace Amrious2.Presentaion
             }
         }
 
-        private ObservableCollection<WordsGroupItem> _wordslevels;
-        public ObservableCollection<WordsGroupItem> WordsLevels
-        {
-            get
-            {
-                return _wordslevels;
-            }
-            set
-            {
-                _wordslevels = value;
-                OnPropertyChanged("WordsLevels");
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public BinderWordsPage(WordsLogic logicer)
         {
             this.logicer = logicer;
             Catagory[] tletter = logicer.GetLetterCatagorys();
-            Catagory[] tlevel = logicer.GetLevelCatagorys();
             _wordsgroups = new ObservableCollection<WordsGroupItem>();
-            _wordslevels = new ObservableCollection<WordsGroupItem>();
             for (int i = 0; i < tletter.Length; i++)
                 _wordsgroups.Add(new WordsGroupItem(tletter[i].GetName(), tletter[i].GetNumber()));
-            for (int i = 0; i < tlevel.Length; i++)
-                _wordslevels.Add(new WordsGroupItem(tlevel[i].GetName(), tlevel[i].GetNumber()));
             OnPropertyChanged("WordsGroups");
-            OnPropertyChanged("WordsLevels");
         }
 
         //The Method For the binding, Property Changed

@@ -11,7 +11,7 @@ namespace Amrious2
         private int number;
         public String LabelText
         {
-            get { return number+" words left"; }
+            get { return number+" words"; }
         }
 
         private String buttontext;

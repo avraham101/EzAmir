@@ -7,16 +7,11 @@ namespace Amrious2.Logic
     public class WordsLogic
     {
         private WordsKepper kepper;
-        private enum State { Letter, Level, None};
+        private enum State { Letter, None};
         private State state;
         private List<Word>[] words; // Array of Lists of all the words by first Letter
         
-        //neeed to be delet the levels. dont help.
-        private List<Word>[] levels; // Array of Lists of all the words by level
-
         private char _letter; //picked letter in Upper Mode
-        private int _level; // picked level
-
         private List<Word> _listPicked; //the list picked
         private int _listpickedindex;
 
@@ -30,21 +25,12 @@ namespace Amrious2.Logic
         public void Init()
         {
             state = State.None;
-            _level = 1;
             _letter = 'A';
-            levels = new List<Word>[4]; //4 levels
             _listPicked = null;
             _listpickedindex = 0;
             //need to call from presistent
             kepper = new WordsKepper();
-            words = kepper.GetArrayWordList(); //26 letters    
-
-            //words[0] = kepper.GetWordList();
-            for (int i = 0; i < 4; i++)
-                levels[i] = new List<Word>();
-            for (int i = 0; i < 30; i++)
-                levels[i % 4].Add(new Word("a" + (char)('a' + i), "" + i, i, i % 4 + 1, true, DateTime.Now)); //Must be pointer
-            
+            words = kepper.GetArrayWordList(); //26 letters        
         }
 
         //get the catagories
@@ -61,26 +47,13 @@ namespace Amrious2.Logic
             return output;
         }
 
-        public Catagory[] GetLevelCatagorys()
-        {
-            Catagory[] output = new Catagory[levels.Length];
-            for (int i = 0; i < levels.Length; i++)
-            {
-                if (levels[i] != null)
-                    output[i] = new Catagory(levels[i].Count, "Level " + (i + 1));
-                else
-                    output[i] = new Catagory(0, "Level" + (i + 1));
-            }
-            return output;
-        }
-
         // get the picked state
         public String GetPickedName()
         {
             if (state == State.Letter)
                 return "" + _letter;
-            else if (state == State.Level)
-                return "Level " + _level;
+            //else if (state == State.Level)
+            //    return "Level " + _level;
             return null;
         }
 
@@ -186,8 +159,9 @@ namespace Amrious2.Logic
                 _listPicked[_listpickedindex].WordForgot();
         }
 
+        //Need To be deleted
         //change the current State and update the pick
-        public Boolean PickLevel(int _level)
+        /*public Boolean PickLevel(int _level)
         {
             int indexofLevel = _level - 1;
             _listPicked = null;
@@ -199,7 +173,7 @@ namespace Amrious2.Logic
                 return true;
             }
             return false;
-        }
+        }*/
 
         public Boolean PickLetter(char _letter)
         {
