@@ -7,7 +7,7 @@ namespace Amrious2
 {
     public class WordsGroupItem
     {
-        //✔❌
+        //✔❌?
         private int number;
         public String LabelText
         {
