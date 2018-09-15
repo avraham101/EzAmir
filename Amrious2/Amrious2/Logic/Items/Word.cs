@@ -12,18 +12,13 @@ namespace Amrious2.Logic
         {
         }
 
-        /*public Word(String word, String meaning, int index, int level) : base(word,meaning,index,level)
-        {
-        }
-        */
-
-        public Word(String word, String meaning, int index, Boolean learned) 
-            : base(word,meaning,index,learned)
+        public Word(String word, String meaning, int index, Boolean wordseen, Boolean learned) 
+            : base(word,meaning,index,wordseen,learned)
         {
         }
 
-        public Word(String word, String meaning, int index, Boolean learned, DateTime timelearned)
-    : base(word, meaning, index, learned)
+        public Word(String word, String meaning, int index, Boolean wordseen, Boolean learned, DateTime timelearned)
+    : base(word, meaning, index, wordseen,learned)
         {
             wordLearnedDate = timelearned;
         }
@@ -31,13 +26,19 @@ namespace Amrious2.Logic
         public void WordMastered()
         {
             wordLearnedDate = DateTime.Now;
-            learned = true;
+            status = State.Mastered;
         }
 
-        public void WordForgot()
+        public void WordUnMastered()
         {
             wordLearnedDate = new DateTime();
-            learned = false;
+            status = State.NotMastered;
+        }
+
+        public void WordSeen()
+        {//each time the word seen its goes to NotMaterd only if the word was already didntsee
+            if(status==State.DidntSee)
+                status = State.NotMastered;
         }
 
         public void SetIndex(int index)

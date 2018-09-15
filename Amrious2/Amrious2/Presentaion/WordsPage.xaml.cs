@@ -48,29 +48,6 @@ namespace Amrious2
             }
         }
 
-        //need to be deleted
-        /*void LevelClick(object sender, EventArgs e)
-        {
-            if (sender != null)
-            {
-                String tmp = (sender as Button).Text;
-                if (!String.IsNullOrWhiteSpace(tmp))
-                {
-                    //Level 1 6
-                    if (tmp.Length > 7)
-                        throw new Exception("Level invalid to many chars");
-                    tmp = tmp.Substring(6, 1);
-                    int level = Int32.Parse(tmp);
-                    if (level < 1 || level > 4)
-                        throw new Exception("Level invalid not between 1 to 4");
-                    if (logicer.PickLevel(level))
-                        MoveToLearnScreen();
-                    else
-                        DisplayAlert("Un avilable Path", "There is no words left", "Ok");
-                }
-            }
-        }*/
-
         //move to the next screen
         private void MoveToLearnScreen()
         {
@@ -81,6 +58,16 @@ namespace Amrious2
         void BackClick(object sender, EventArgs e)
         {
             Navigation.PopAsync();
+        }
+
+        //pick all words and move to the next screen
+        void AllWordsClick(object sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                if (logicer.PickAllWords())
+                    MoveToLearnScreen();
+            }
         }
 
     }

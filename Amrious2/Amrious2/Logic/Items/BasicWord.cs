@@ -7,11 +7,12 @@ namespace Amrious2.Logic
     [Serializable]
     public class BasicWord 
     {
+        protected enum State { Mastered, NotMastered, DidntSee} //the state of the word
         protected String word; //the word
         protected String meaning; //the meaning
         protected char catagory; // first letter of the word in Upper
-        protected int index; //the index of the word
-        protected Boolean learned; //status of the word
+        protected int index; //the index of the word 
+        protected State status; //status of the word
         protected DateTime wordLearnedDate; //the date the word learned 
 
         public BasicWord(String word, String meaning,int index)
@@ -22,31 +23,22 @@ namespace Amrious2.Logic
             this.meaning = meaning;
             this.index = index;
             catagory = char.ToUpper(this.word[0]);
-            learned = false;
+            status = State.DidntSee;
             wordLearnedDate = new DateTime();
         }
 
-        /*public BasicWord(String word, String meaning, int index, int level)
-        {
-            if (String.IsNullOrWhiteSpace(word) || String.IsNullOrWhiteSpace(meaning)
-                || level < 0 || level > 4)
-                throw new Exception("Word or Level isn't valid");
-            this.word = RemoveAllSpaces(word);
-            this.meaning = meaning;
-            this.index = index;
-            this.level = level;
-            catagory = char.ToUpper(this.word[0]);
-            learned = false;
-            wordLearnedDate = new DateTime(0, 0, 0);
-        }*/
-
-        public BasicWord(String word, String meaning, int index, Boolean learned)
+        public BasicWord(String word, String meaning, int index, Boolean wordseen, Boolean learned)
         {
             if (String.IsNullOrWhiteSpace(word) || String.IsNullOrWhiteSpace(meaning))
                 throw new Exception("Word or Associations or learned isn't valid");
             this.word = RemoveAllSpaces(word);
             this.meaning = meaning;
-            this.learned = learned;
+            if (wordseen & learned)
+                status = State.Mastered;
+            else if (wordseen & !learned)
+                status = State.NotMastered;
+            else
+                status = State.DidntSee;
             catagory = char.ToUpper(this.word[0]);
             wordLearnedDate = new DateTime();
         }
@@ -59,7 +51,7 @@ namespace Amrious2.Logic
             index = other.index;
             word = RemoveAllSpaces(other.word);
             meaning = other.meaning;
-            learned = other.learned;
+            status = other.status;
             wordLearnedDate = other.wordLearnedDate;
         }
 
@@ -96,8 +88,12 @@ namespace Amrious2.Logic
 
         public Boolean IsWordLearned
         {
-             get { return learned; }
-             set { learned = value; }
+             get { return (status!=State.Mastered); }
+        }
+        
+        public Boolean IsWordSeen
+        {
+            get { return (status != State.DidntSee); }
         }
 
         public int GetIndex
@@ -115,7 +111,7 @@ namespace Amrious2.Logic
             get { return catagory; }
         }
 
-        public String ToString()
+        public override String ToString()
         {
             return word + "(" + index +"/"+catagory+ ") " + " : " + meaning;
         }

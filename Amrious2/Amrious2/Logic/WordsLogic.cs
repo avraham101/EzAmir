@@ -7,14 +7,15 @@ namespace Amrious2.Logic
     public class WordsLogic
     {
         private WordsKepper kepper;
-        private enum State { Letter, None};
+        private enum State {Letter, AllWords, None};
         private State state;
         private List<Word>[] words; // Array of Lists of all the words by first Letter
         
         private char _letter; //picked letter in Upper Mode
         private List<Word> _listPicked; //the list picked
-        private int _listpickedindex;
-
+        
+        private int _listpickedindex;//the index of the word in the list
+        
         //constructor
         public WordsLogic()
         {
@@ -28,7 +29,6 @@ namespace Amrious2.Logic
             _letter = 'A';
             _listPicked = null;
             _listpickedindex = 0;
-            //need to call from presistent
             kepper = new WordsKepper();
             words = kepper.GetArrayWordList(); //26 letters        
         }
@@ -52,8 +52,8 @@ namespace Amrious2.Logic
         {
             if (state == State.Letter)
                 return "" + _letter;
-            //else if (state == State.Level)
-            //    return "Level " + _level;
+            else if (state == State.AllWords)
+                return "All words";
             return null;
         }
 
@@ -156,25 +156,10 @@ namespace Amrious2.Logic
             if (status)
                 _listPicked[_listpickedindex].WordMastered();
             else
-                _listPicked[_listpickedindex].WordForgot();
+                _listPicked[_listpickedindex].WordUnMastered();
         }
-
-        //Need To be deleted
-        //change the current State and update the pick
-        /*public Boolean PickLevel(int _level)
-        {
-            int indexofLevel = _level - 1;
-            _listPicked = null;
-            if (levels[indexofLevel] != null && levels[indexofLevel].Count > 0)
-            {
-                this._level = _level;
-                state = State.Level;
-                _listPicked = levels[indexofLevel];
-                return true;
-            }
-            return false;
-        }*/
-
+        
+        //Change the picked letter
         public Boolean PickLetter(char _letter)
         {
             int indexofLetter = (int)(_letter - 'A');
@@ -189,5 +174,24 @@ namespace Amrious2.Logic
             return false;
         }
 
+        //the function return all the words avalible
+        public Boolean PickAllWords()
+        {
+            List<Word> output = new List<Word>();
+            int counter = 0;
+            foreach (List<Word> tmp in words)
+            {
+                if (tmp != null && tmp.Count > 0)
+                    foreach (Word w in tmp)
+                    {
+                        w.SetIndex(counter);
+                        output.Add(w);
+                        counter++; 
+                    }
+            }
+            _listPicked = output;
+            state = State.AllWords;
+            return true;
+        }
       }
 }

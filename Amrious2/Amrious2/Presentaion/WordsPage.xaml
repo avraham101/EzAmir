@@ -46,12 +46,24 @@
             </Grid.RowDefinitions>
             <Label Margin="0,0,0,0" HorizontalOptions="Fill" HorizontalTextAlignment="Center" VerticalOptions="Fill" Grid.Row="0"
                        Text="Options" FontFamily="casual" TextColor="White" BackgroundColor="#003E7C" FontSize="Medium" FontAttributes="Bold"/>
-            <Button Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="1"
-                       Text="1" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
-            <Button Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="2"
-                       Text="2" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
-            <Button Margin="5,2,5,4" HorizontalOptions="Fill" Grid.Row="3"
-                       Text="3" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+            <Picker SelectedIndex="-1" Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="1"
+                    Title="Select A Fillter" BackgroundColor="White">
+                <Picker.Items>
+                    <x:String> All Words</x:String>
+                    <x:String> Known Words </x:String>
+                    <x:String> Unknown Words </x:String>
+                    <x:String> New Words </x:String>
+                </Picker.Items>
+            </Picker>
+            <Picker SelectedIndex="-1" Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="2"
+                    Title="Select An Order" BackgroundColor="White">
+                <Picker.Items>
+                    <x:String>Alphabetical</x:String>
+                    <x:String>Mixed</x:String>
+                </Picker.Items>
+            </Picker>
+            <Button Margin="5,2,5,4" HorizontalOptions="Fill" Grid.Row="3" Clicked="AllWordsClick"
+                       Text="All Words from all letters" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
         </Grid>
         <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
                Text="EzAmir" BackgroundColor="#FF0066CC" TextColor="White" FontSize="20" FontAttributes="Bold" FontFamily="cursive" />

@@ -310,7 +310,7 @@ namespace Amrious2.Presentaion
         //Picked Word Update
         public void PickWordStatus(Boolean status)
         {
-            _wordslist[_pickedWordIndex].IsWordLearned = status;
+            //_wordslist[_pickedWordIndex].IsWordLearned = status;
             logicer.WordMastered(status);
             PickedWordLearned = status;
             if (status)
