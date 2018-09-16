@@ -16,7 +16,7 @@ namespace Amrious2.Presentaion
         private BinderWordLearning binder;
 		public WordsLearnPage (WordsLogic logicer)
 		{
-			InitializeComponent ();
+			InitializeComponent();
             this.logicer = logicer;
             Init();
 		}

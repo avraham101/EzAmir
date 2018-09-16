@@ -284,7 +284,7 @@ namespace Amrious2.Presentaion
             PickedWordIndex = logicer.GetIndexWord() + "/" + _wordslist.Count;//logicer.GetIndexWord() + "/" + _wordslist.Count;
             _pickedWordIndex = tmp.GetIndex;
             PickedWordLearned = tmp.IsWordLearned;
-            PickedWordLearnedDate = tmp.GetDate.ToLongDateString();
+            PickedWordLearnedDate = tmp.GetDate.ToLongTimeString();
         }
 
         //Next Word for Indivitaul View

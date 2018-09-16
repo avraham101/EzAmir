@@ -14,11 +14,12 @@ namespace Amrious2
 	{
         private BinderWordsPage binder;
         private WordsLogic logicer;
-        
+        private String fillter;
+        private String sorter;
         //constructor
         public WordsPage ()
 		{
-			InitializeComponent ();
+			InitializeComponent();
             Init();
 		}
 
@@ -27,6 +28,8 @@ namespace Amrious2
             logicer = new WordsLogic();
             binder = new BinderWordsPage(logicer);
             this.BindingContext = binder;
+            fillter = "I am Fillter";
+            sorter = "I am Sorter";
         }
 
         //Click Events
@@ -40,7 +43,7 @@ namespace Amrious2
                     if (tmp.Length > 1)
                         throw new Exception("Letter invalid more then 1 char");
                     char letter = char.ToUpper(tmp[0]);
-                    if(logicer.PickLetter(letter))
+                    if(logicer.PickLetter(letter,fillter))
                         MoveToLearnScreen();
                     else
                         DisplayAlert("Un avilable Path", "There is no words left", "Ok");
@@ -65,10 +68,27 @@ namespace Amrious2
         {
             if (sender != null)
             {
-                if (logicer.PickAllWords())
+                if (logicer.PickAllWords(fillter))
                     MoveToLearnScreen();
             }
         }
 
+        //the function update the fillter
+        //note; first it update the presentaion localy After he moved screen it update the app
+        void ChangedFillter(object sender, EventArgs e)
+        {
+            if(sender!=null)
+            {
+                fillter = (sender as Picker).SelectedItem as String;
+            }
+        }
+
+        void ChangedSorter(object sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+
+            }
+        }
     }
 }

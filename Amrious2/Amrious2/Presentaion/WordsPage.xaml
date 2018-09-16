@@ -47,15 +47,15 @@
             <Label Margin="0,0,0,0" HorizontalOptions="Fill" HorizontalTextAlignment="Center" VerticalOptions="Fill" Grid.Row="0"
                        Text="Options" FontFamily="casual" TextColor="White" BackgroundColor="#003E7C" FontSize="Medium" FontAttributes="Bold"/>
             <Picker SelectedIndex="-1" Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="1"
-                    Title="Select A Fillter" BackgroundColor="White">
+                    Title="Select A Fillter" BackgroundColor="White" SelectedIndexChanged="ChangedFillter">
                 <Picker.Items>
-                    <x:String> All Words</x:String>
-                    <x:String> Known Words </x:String>
-                    <x:String> Unknown Words </x:String>
-                    <x:String> New Words </x:String>
+                    <x:String>All Words</x:String>
+                    <x:String>Known Words</x:String>
+                    <x:String>Unknown Words</x:String>
+                    <x:String>New Words</x:String>
                 </Picker.Items>
             </Picker>
-            <Picker SelectedIndex="-1" Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="2"
+            <Picker SelectedIndex="-1" Margin="5,2,5,2" HorizontalOptions="Fill" Grid.Row="2" SelectedIndexChanged="ChangedSorter"
                     Title="Select An Order" BackgroundColor="White">
                 <Picker.Items>
                     <x:String>Alphabetical</x:String>

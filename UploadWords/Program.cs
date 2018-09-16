@@ -59,8 +59,15 @@ namespace UploadWords
             string[] filePaths = Directory.GetFiles(@"C:\Users\avrah\Desktop\Amir Project\words\");
             foreach (String e in filePaths)
             {
-                if(!e.Contains("not yet"))
-                    output.AddRange(ReadExcelWords(e,output.Count));
+                if (!e.Contains("not yet"))
+                {
+                    List<Word> add = ReadExcelWords(e, output.Count);
+                    foreach (Word w in add)
+                    {
+                        if (!output.Contains(w))
+                            output.Add(w);
+                    }
+                }
             }
             Console.WriteLine("List of Words");
             //output = output.OrderBy(e => e.GetCatagory).ToList();

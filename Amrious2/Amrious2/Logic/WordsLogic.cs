@@ -6,11 +6,14 @@ namespace Amrious2.Logic
 {
     public class WordsLogic
     {
+        private enum State { Letter, AllWords, None};
+        private enum Fillter { AllWords,KnownWords, UnknownWords, NewWords}
+
         private WordsKepper kepper;
-        private enum State {Letter, AllWords, None};
         private State state;
+        private Fillter fillter;
+
         private List<Word>[] words; // Array of Lists of all the words by first Letter
-        
         private char _letter; //picked letter in Upper Mode
         private List<Word> _listPicked; //the list picked
         
@@ -26,6 +29,7 @@ namespace Amrious2.Logic
         public void Init()
         {
             state = State.None;
+            fillter = Fillter.AllWords;
             _letter = 'A';
             _listPicked = null;
             _listpickedindex = 0;
@@ -160,22 +164,23 @@ namespace Amrious2.Logic
         }
         
         //Change the picked letter
-        public Boolean PickLetter(char _letter)
+        public Boolean PickLetter(char _letter, String _fillter)
         {
             int indexofLetter = (int)(_letter - 'A');
             _listPicked = null;
             if (words[indexofLetter] != null && words[indexofLetter].Count > 0)
             {
                 this._letter = _letter;
-                state = State.Letter;
                 _listPicked = words[indexofLetter];
+                state = State.Letter;
+                UpdateFillter(_fillter);
                 return true;
             }
             return false;
         }
 
         //the function return all the words avalible
-        public Boolean PickAllWords()
+        public Boolean PickAllWords(String _fillter)
         {
             List<Word> output = new List<Word>();
             int counter = 0;
@@ -191,7 +196,87 @@ namespace Amrious2.Logic
             }
             _listPicked = output;
             state = State.AllWords;
+            UpdateFillter(_fillter);
             return true;
         }
-      }
+
+        //The function update the Fillter from a choosen string
+        private void UpdateFillter(String filt)
+        {
+            if(filt!=null)
+            {
+                switch(filt)
+                {
+                    case "All Words": fillter = Fillter.AllWords; break;
+                    case "Known Words": fillter = Fillter.KnownWords; break;
+                    case "Unknown Words": fillter = Fillter.UnknownWords; break;
+                    case "New Words": fillter = Fillter.NewWords; break;
+                    default: fillter = Fillter.AllWords; break;
+                }
+                RunFillter();
+            }
+        }
+
+        //The Function Run the fillter chosen on the picked List
+        private void RunFillter()
+        {
+            if (_listPicked != null && _listPicked.Count > 0)
+            {
+                switch (fillter)
+                {
+                    case Fillter.AllWords: break; //need to put her a reset to the list or only its one way to go?
+                    case Fillter.KnownWords: _listPicked = FillterKnownWords(); break;
+                    case Fillter.NewWords: _listPicked = FillterNewWords(); break;
+                    case Fillter.UnknownWords: _listPicked = FillterUnKnownWords(); break;
+                }
+                if (_listPicked.Count < 1)
+                    _listPicked.Add(new Word("No Words Left", "No Words Left", 1));
+            }
+        }
+
+        //The Function return a List filltered By Known Words
+        private List<Word> FillterKnownWords()
+        {
+            List<Word> output = new List<Word>();
+            if(_listPicked!=null && _listPicked.Count>0)
+            {
+                foreach(Word w in _listPicked)
+                {
+                    if (w.IsWordLearned)
+                        output.Add(w);
+                }
+            }
+            return output;
+        }
+
+        //The function return a List filltered By UnKnown Words
+        private List<Word> FillterUnKnownWords()
+        {
+            List<Word> output = new List<Word>();
+            if (_listPicked != null && _listPicked.Count > 0)
+            {
+                foreach (Word w in _listPicked)
+                {
+                    if (!w.IsWordLearned & w.IsWordSeen)
+                        output.Add(w);
+                }
+            }
+            return output;
+        }
+
+        //The function return a List filltered By New Words
+        private List<Word> FillterNewWords()
+        {
+            List<Word> output = new List<Word>();
+            if (_listPicked != null && _listPicked.Count > 0)
+            {
+                foreach (Word w in _listPicked)
+                {
+                    if (!w.IsWordSeen)
+                        output.Add(w);
+                }
+            }
+            return output;
+        }
+    }
 }
