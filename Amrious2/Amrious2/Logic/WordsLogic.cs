@@ -15,7 +15,8 @@ namespace Amrious2.Logic
 
         private List<Word>[] words; // Array of Lists of all the words by first Letter
         private char _letter; //picked letter in Upper Mode
-        private List<Word> _listPicked; //the list picked
+        private List<Word> _listPicked; //the list picked: 
+        //we can changed it but the changes need to be saved in the words
         
         private int _listpickedindex;//the index of the word in the list
         
@@ -81,11 +82,26 @@ namespace Amrious2.Logic
         //get word from the index picked
         public BasicWord GetWord()
         {
-            if (_listPicked == null || _listPicked.Count < 1)
+            if (_listPicked == null || _listPicked.Count == 1)
                 //return new BasicWord("No More Words Left", "Congratulations", 1, false);
                 throw new Exception("Picked List is empty cant Get Words");
             else if (_listpickedindex > _listPicked.Count | _listpickedindex < 0)
                 throw new Exception("Index Picked isn't valid");
+            if (!_listPicked[_listpickedindex].IsWordSeen)
+            {
+                switch (state)
+                {
+                    case State.AllWords: break; // need to find the letter of the word pick and update her in the list
+                    case State.Letter:
+                        int indexofLetter = (int)(_letter - 'A');
+                        if (indexofLetter < 0)
+                            throw new Exception("Found it. It is the letter index wrong");
+                        _listPicked[_listpickedindex].WordSeen();
+                        words[indexofLetter][_listPicked[_listpickedindex].GetIndex-1].WordSeen();
+                        break;
+                }
+                        
+            }
             return _listPicked[_listpickedindex];
         }
 
@@ -99,6 +115,7 @@ namespace Amrious2.Logic
                     if (_listPicked[i].GetWord.Equals(word))
                     {
                         _listpickedindex = i;
+                        _listPicked[i].WordSeen();
                         return _listPicked[i];
                     }
             return null;
@@ -115,6 +132,7 @@ namespace Amrious2.Logic
         public BasicWord GetPrevWord()
         {
             PrevWord();
+            //throw new Exception("index " + _listpickedindex);
             return GetWord();
         }
 
@@ -154,13 +172,35 @@ namespace Amrious2.Logic
             _listpickedindex = 0;
         }
 
+        //update the index list mode
+       /* public void UpdateIndex(int index)
+        {
+            if (_listPicked == null || (index < 0 | index > _listPicked.Count - 1))
+                throw new Exception("Somthing wrong with the index we are trying to set");
+            _listpickedindex                
+        }*/
+
         //Change word Status of the picked: Mastered and unMastered
         public void WordMastered(Boolean status)
         {
-            if (status)
-                _listPicked[_listpickedindex].WordMastered();
-            else
-                _listPicked[_listpickedindex].WordUnMastered();
+            switch(state)
+            {
+                case State.AllWords: break; // need to find the letter of the word pick and update her in the list
+                case State.Letter:
+                    int indexofLetter = (int)(_letter - 'A');
+                    if (status)
+                    {
+                        _listPicked[_listpickedindex].WordMastered();
+                        words[indexofLetter][_listPicked[_listpickedindex].GetIndex-1].WordMastered();
+                    }
+                    else
+                    {
+                        _listPicked[_listpickedindex].WordUnMastered();
+                        words[indexofLetter][_listPicked[_listpickedindex].GetIndex-1].WordUnMastered();
+                    }
+                    break;
+            }
+            
         }
         
         //Change the picked letter

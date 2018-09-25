@@ -14,13 +14,15 @@ namespace Amrious2.Presentaion
 	{
         private WordsLogic logicer;
         private BinderWordLearning binder;
-		public WordsLearnPage (WordsLogic logicer)
+        //builder
+        public WordsLearnPage (WordsLogic logicer)
 		{
 			InitializeComponent();
             this.logicer = logicer;
             Init();
 		}
-
+        
+        //ipos varibels
         private void Init()
         {
             logicer.ResetIndex();
@@ -78,6 +80,7 @@ namespace Amrious2.Presentaion
         {
             if (sender != null)
             {
+                logicer.GetWord((e.SelectedItem as BasicWord).GetWord); //here the function ment to update the index in the logic layer
                 binder.SelectListItem(e.SelectedItem as BasicWord);
                 binder.ListCellOptionsVisibilty = true;
             }
@@ -88,6 +91,7 @@ namespace Amrious2.Presentaion
         {
             if(sender!=null)
             {
+                logicer.WordMastered(true);
                 binder.PickWordStatus(true);
             }
         }
@@ -97,10 +101,10 @@ namespace Amrious2.Presentaion
         {
             if (sender != null)
             {
+                logicer.WordMastered(false);
                 binder.PickWordStatus(false);
             }
         }
-
 
         //need to be delleted
         void UnderBulidingClick(object sender, EventArgs e)

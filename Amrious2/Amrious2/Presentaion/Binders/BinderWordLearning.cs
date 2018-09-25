@@ -284,7 +284,7 @@ namespace Amrious2.Presentaion
             PickedWordIndex = logicer.GetIndexWord() + "/" + _wordslist.Count;//logicer.GetIndexWord() + "/" + _wordslist.Count;
             _pickedWordIndex = tmp.GetIndex;
             PickedWordLearned = tmp.IsWordLearned;
-            PickedWordLearnedDate = tmp.GetDate.ToLongTimeString();
+            PickedWordLearnedDate = CustomStringTime(tmp.GetDate);
         }
 
         //Next Word for Indivitaul View
@@ -310,26 +310,33 @@ namespace Amrious2.Presentaion
         //Picked Word Update
         public void PickWordStatus(Boolean status)
         {
-            //_wordslist[_pickedWordIndex].IsWordLearned = status;
-            logicer.WordMastered(status);
             PickedWordLearned = status;
             if (status)
-                PickedWordLearnedDate = DateTime.Now.ToString();
+                PickedWordLearnedDate = CustomStringTime(DateTime.Now);
             else
                 PickedWordLearnedDate = "No Date";
+            UpdateListOfWords();
         }
         
         //Update the Observeble List
         private void UpdateListOfWords()
         {
+            _wordslist = new ObservableCollection<BasicWord>();
             foreach (BasicWord e in logicer.GetListOfWords())
                 _wordslist.Add(e);
+            OnPropertyChanged("WordsList");
         }
 
         //The Method For the binding, Property Changed
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        //The function return a custom string of time
+        private String CustomStringTime(DateTime time)
+        {
+            return time.Day + "/" + time.Month + "/" + time.Year + "  " + time.Hour + ":" + time.Minute;
         }
     }
 }

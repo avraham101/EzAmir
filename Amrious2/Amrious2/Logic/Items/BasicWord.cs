@@ -88,7 +88,7 @@ namespace Amrious2.Logic
 
         public Boolean IsWordLearned
         {
-             get { return (status!=State.Mastered); }
+             get { return (status==State.Mastered); }
         }
         
         public Boolean IsWordSeen
