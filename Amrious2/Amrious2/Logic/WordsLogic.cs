@@ -159,7 +159,6 @@ namespace Amrious2.Logic
         public BasicWord GetPrevWord()
         {
             PrevWord();
-            //throw new Exception("index " + _listpickedindex);
             return GetWord();
         }
 
@@ -219,11 +218,13 @@ namespace Amrious2.Logic
         public Boolean PickLetter(char _letter, String _fillter, String _sorter)
         {
             int indexofLetter = (int)(_letter - 'A');
-            _listPicked = null;
+            _listPicked = new List<Word>();
             if (words[indexofLetter] != null && words[indexofLetter].Count > 0)
             {
                 this._letter = _letter;
-                _listPicked = words[indexofLetter];
+                //_listPicked = words[indexofLetter];
+                foreach (Word e in words[indexofLetter])
+                    _listPicked.Add(e);
                 state = State.Letter;
                 UpdateFillter(_fillter);
                 UpdateSorter(_sorter);
