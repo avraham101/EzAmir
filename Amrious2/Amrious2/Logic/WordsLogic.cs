@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Amrious2.Presistent;
 namespace Amrious2.Logic
@@ -8,10 +9,13 @@ namespace Amrious2.Logic
     {
         private enum State { Letter, AllWords, None};
         private enum Fillter { AllWords,KnownWords, UnknownWords, NewWords}
+        private enum Sorter { Alphabetical, Mixed}
+        private enum ActionToWord { Seen, Mastered, UnMastered}
 
         private WordsKepper kepper;
         private State state;
         private Fillter fillter;
+        private Sorter sorter;
 
         private List<Word>[] words; // Array of Lists of all the words by first Letter
         private char _letter; //picked letter in Upper Mode
@@ -31,6 +35,7 @@ namespace Amrious2.Logic
         {
             state = State.None;
             fillter = Fillter.AllWords;
+            sorter = Sorter.Alphabetical;
             _letter = 'A';
             _listPicked = null;
             _listpickedindex = 0;
@@ -89,18 +94,8 @@ namespace Amrious2.Logic
                 throw new Exception("Index Picked isn't valid");
             if (!_listPicked[_listpickedindex].IsWordSeen)
             {
-                switch (state)
-                {
-                    case State.AllWords: break; // need to find the letter of the word pick and update her in the list
-                    case State.Letter:
-                        int indexofLetter = (int)(_letter - 'A');
-                        if (indexofLetter < 0)
-                            throw new Exception("Found it. It is the letter index wrong");
-                        _listPicked[_listpickedindex].WordSeen();
-                        words[indexofLetter][_listPicked[_listpickedindex].GetIndex-1].WordSeen();
-                        break;
-                }
-                        
+                _listPicked[_listpickedindex].WordSeen();
+                MarkWordInOriginalList(_listPicked[_listpickedindex].GetWord,ActionToWord.Seen);
             }
             return _listPicked[_listpickedindex];
         }
@@ -116,9 +111,41 @@ namespace Amrious2.Logic
                     {
                         _listpickedindex = i;
                         _listPicked[i].WordSeen();
+                        MarkWordInOriginalList(_listPicked[i].GetWord, ActionToWord.Seen);
                         return _listPicked[i];
                     }
             return null;
+        }
+
+        //Mark the word from the original list words to seen
+        private void MarkWordInOriginalList(String word,ActionToWord act)
+        {
+            if (String.IsNullOrWhiteSpace(word))
+                throw new Exception("word isnt correct");
+            int indexofLetter = -1;
+            switch (state)
+            {
+                case State.AllWords: indexofLetter = (int)('A' - word.ToUpper()[0]); break;
+                case State.Letter: indexofLetter = (int)(_letter - 'A'); break;
+            }
+            if (indexofLetter < 0)
+                throw new Exception("Found it. It is the letter index wrong");
+            if (words[indexofLetter] != null && words[indexofLetter].Count > 0)
+                for (int i = 0; i < words[indexofLetter].Count; i++)
+                    if (words[indexofLetter][i].GetWord.Equals(word))
+                    {
+                        switch(act)
+                        {
+                            case ActionToWord.Seen:
+                                words[indexofLetter][i].WordSeen(); break;
+                            case ActionToWord.Mastered:
+                                words[indexofLetter][i].WordMastered(); break;
+                            case ActionToWord.UnMastered:
+                                words[indexofLetter][i].WordUnMastered();
+                                break;
+                        }
+                    }
+                        
         }
 
         //get the next Word
@@ -172,39 +199,24 @@ namespace Amrious2.Logic
             _listpickedindex = 0;
         }
 
-        //update the index list mode
-       /* public void UpdateIndex(int index)
-        {
-            if (_listPicked == null || (index < 0 | index > _listPicked.Count - 1))
-                throw new Exception("Somthing wrong with the index we are trying to set");
-            _listpickedindex                
-        }*/
-
         //Change word Status of the picked: Mastered and unMastered
         public void WordMastered(Boolean status)
         {
-            switch(state)
+            if (status)
             {
-                case State.AllWords: break; // need to find the letter of the word pick and update her in the list
-                case State.Letter:
-                    int indexofLetter = (int)(_letter - 'A');
-                    if (status)
-                    {
-                        _listPicked[_listpickedindex].WordMastered();
-                        words[indexofLetter][_listPicked[_listpickedindex].GetIndex-1].WordMastered();
-                    }
-                    else
-                    {
-                        _listPicked[_listpickedindex].WordUnMastered();
-                        words[indexofLetter][_listPicked[_listpickedindex].GetIndex-1].WordUnMastered();
-                    }
-                    break;
+                _listPicked[_listpickedindex].WordMastered();
+                MarkWordInOriginalList(_listPicked[_listpickedindex].GetWord, ActionToWord.Mastered);   
+            }
+            else
+            {
+                _listPicked[_listpickedindex].WordUnMastered();
+                    MarkWordInOriginalList(_listPicked[_listpickedindex].GetWord, ActionToWord.UnMastered);
             }
             
         }
         
         //Change the picked letter
-        public Boolean PickLetter(char _letter, String _fillter)
+        public Boolean PickLetter(char _letter, String _fillter, String _sorter)
         {
             int indexofLetter = (int)(_letter - 'A');
             _listPicked = null;
@@ -214,16 +226,19 @@ namespace Amrious2.Logic
                 _listPicked = words[indexofLetter];
                 state = State.Letter;
                 UpdateFillter(_fillter);
+                UpdateSorter(_sorter);
+                if (_listPicked.Count < 1)
+                    return false;
                 return true;
             }
             return false;
         }
 
         //the function return all the words avalible
-        public Boolean PickAllWords(String _fillter)
+        public Boolean PickAllWords(String _fillter,String _sorter)
         {
             List<Word> output = new List<Word>();
-            int counter = 0;
+            int counter = 1;
             foreach (List<Word> tmp in words)
             {
                 if (tmp != null && tmp.Count > 0)
@@ -237,6 +252,9 @@ namespace Amrious2.Logic
             _listPicked = output;
             state = State.AllWords;
             UpdateFillter(_fillter);
+            UpdateSorter(_sorter);
+            if (_listPicked.Count < 1)
+                return false;
             return true;
         }
 
@@ -269,8 +287,6 @@ namespace Amrious2.Logic
                     case Fillter.NewWords: _listPicked = FillterNewWords(); break;
                     case Fillter.UnknownWords: _listPicked = FillterUnKnownWords(); break;
                 }
-                if (_listPicked.Count < 1)
-                    _listPicked.Add(new Word("No Words Left", "No Words Left", 1));
             }
         }
 
@@ -316,6 +332,60 @@ namespace Amrious2.Logic
                         output.Add(w);
                 }
             }
+            return output;
+        }
+
+        //The function update the Sorter from a choosen string
+        private void UpdateSorter(string sort)
+        {
+            if (sort != null)
+            {
+                switch (sort)
+                {
+                    case "Alphabetical": sorter = Sorter.Alphabetical; break;
+                    case "Mixed": sorter = Sorter.Mixed; break;
+                    default: sorter = Sorter.Alphabetical; break;
+                }
+                RunSorter();
+            }
+        }
+
+        //The Function Run the sorter chosen on the picked List
+        private void RunSorter()
+        {
+            if (_listPicked != null && _listPicked.Count > 0)
+            {
+                switch (sorter)
+                {
+                    case Sorter.Alphabetical: _listPicked = SorterAlphabetic(); break;
+                    case Sorter.Mixed: _listPicked = SorterMixed(); break;
+                }
+            }
+        }
+
+        //the Function Return Mix List
+        private List<Word> SorterMixed()
+        {
+            List<Word> output = new List<Word>();
+            Random r = new Random();
+            int tmp = 0;//,counter=0;
+            while (_listPicked.Count>0)
+            {
+                tmp = r.Next(0, _listPicked.Count-1);
+                Word add = _listPicked[tmp];
+                //add.SetIndex(counter);
+                output.Add(add);
+                _listPicked.RemoveAt(tmp);
+                //counter++;
+            }
+            return output;
+        }
+
+        //the function Return The List OrderBy Alpabatic
+        private List<Word> SorterAlphabetic()
+        {
+            List<Word> output = new List<Word>();
+            output = _listPicked.OrderBy(e => e.GetWord).ToList();
             return output;
         }
     }

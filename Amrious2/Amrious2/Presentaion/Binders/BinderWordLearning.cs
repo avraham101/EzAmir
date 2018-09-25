@@ -260,7 +260,15 @@ namespace Amrious2.Presentaion
             if (!IndividualVisibilty)
             {
                 IndivitaulViewIpos();
-                UpdateWordPicked(logicer.GetWord());
+                try
+                {
+                    UpdateWordPicked(logicer.GetWord());
+                }
+                catch(Exception e)
+                {
+                    UpdateWordPicked(new BasicWord("Exception", e.ToString(), 1));
+                }
+                
             }
         }
 

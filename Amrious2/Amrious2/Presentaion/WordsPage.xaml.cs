@@ -16,6 +16,7 @@ namespace Amrious2
         private WordsLogic logicer;
         private String fillter;
         private String sorter;
+        
         //constructor
         public WordsPage ()
 		{
@@ -43,7 +44,7 @@ namespace Amrious2
                     if (tmp.Length > 1)
                         throw new Exception("Letter invalid more then 1 char");
                     char letter = char.ToUpper(tmp[0]);
-                    if(logicer.PickLetter(letter,fillter))
+                    if(logicer.PickLetter(letter,fillter,sorter))
                         MoveToLearnScreen();
                     else
                         DisplayAlert("Un avilable Path", "There is no words left", "Ok");
@@ -68,7 +69,7 @@ namespace Amrious2
         {
             if (sender != null)
             {
-                if (logicer.PickAllWords(fillter))
+                if (logicer.PickAllWords(fillter,sorter))
                     MoveToLearnScreen();
             }
         }
@@ -83,11 +84,13 @@ namespace Amrious2
             }
         }
 
+        //the function update the sorter
+        //note; first it update the presentaion localy After he moved screen it update the app
         void ChangedSorter(object sender, EventArgs e)
         {
             if (sender != null)
             {
-
+                sorter = (sender as Picker).SelectedItem as String;
             }
         }
     }
