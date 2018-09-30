@@ -107,13 +107,6 @@ namespace Amrious2.Presentaion
         }
 
         //need to be delleted
-        void UnderBulidingClick(object sender, EventArgs e)
-        {
-            if (sender != null)
-            {
-                DisplayAlert("Not Avilable", "Under construction", "Back");
-            }
-        }
         void WordListItemClick(object sender, EventArgs e)
         {
             if (sender != null)

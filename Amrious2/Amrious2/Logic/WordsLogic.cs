@@ -125,10 +125,10 @@ namespace Amrious2.Logic
             int indexofLetter = -1;
             switch (state)
             {
-                case State.AllWords: indexofLetter = (int)('A' - word.ToUpper()[0]); break;
+                case State.AllWords: indexofLetter = (int)(word.ToUpper()[0] - 'A'); break;
                 case State.Letter: indexofLetter = (int)(_letter - 'A'); break;
             }
-            if (indexofLetter < 0)
+            if (indexofLetter < 0 || indexofLetter>26)
                 throw new Exception("Found it. It is the letter index wrong");
             if (words[indexofLetter] != null && words[indexofLetter].Count > 0)
                 for (int i = 0; i < words[indexofLetter].Count; i++)

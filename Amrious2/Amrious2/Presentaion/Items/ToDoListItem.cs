@@ -8,7 +8,7 @@ namespace Amrious2
     public class ToDoListItem
     {
         public static Color blueTrue = Color.FromHex("#B3D1F0");
-        public static Color blueFalse = Color.FromHex("#00478F");
+        public static Color blueFalse = Color.FromHex("#737D88");
 
         private String _text;
         public String Text

@@ -74,6 +74,15 @@ namespace Amrious2
             }
         }
 
+        //pick progress and move to the next screen
+        void ProgressClick(object sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                Navigation.PushAsync(new ProgressPage(logicer));
+            }
+        }
+
         //the function update the fillter
         //note; first it update the presentaion localy After he moved screen it update the app
         void ChangedFillter(object sender, EventArgs e)

@@ -16,30 +16,34 @@
         </Grid.ColumnDefinitions>
         <Label Margin="0,0,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Column="0" Grid.Row="1"
                        Text="Letters" FontFamily="casual" TextColor="#FF0066CC" FontSize="20" FontAttributes="Bold"/>
-        <ListView Grid.Column="0" Grid.Row="2" Margin="2,0,-3,0" ItemsSource="{Binding WordsGroups}"
+        <Frame Grid.Column="0" Grid.Row="2" Margin="2,0,-3,0" 
+                   BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="True">
+            <ListView ItemsSource="{Binding WordsGroups}"
                   BackgroundColor="White">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Margin="2,2,0,2" Clicked="LetterClick"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Margin="2,2,0,2" Clicked="LetterClick"
                                         Text="{Binding ButtonText}" WidthRequest="80" FontAttributes="Bold" BackgroundColor="#FF0066CC" TextColor="White"/>
-                                <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,2,2,2" 
+                                    <Label Grid.Column="1" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,2,2,2" 
                                        Text="{Binding LabelText}" FontSize="Small" BackgroundColor="White" TextColor="Black"/>
-                            </Grid>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Frame>
         <Grid Grid.Column="1" Grid.RowSpan="2" Grid.Row="1" BackgroundColor="#0071E2" Margin="2,0,2,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -62,9 +66,17 @@
                     <x:String>Mixed</x:String>
                 </Picker.Items>
             </Picker>
-            <Button Margin="5,2,5,4" HorizontalOptions="Fill" Grid.Row="3" Clicked="AllWordsClick"
-                       Text="All Words from all letters" FontFamily="casual" BackgroundColor="White" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
-        </Grid>
+            <Frame Margin="5,2,5,4" Grid.Row="3" 
+                   BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="True">
+                <Button  HorizontalOptions="Fill" Clicked="AllWordsClick"
+                       Text="All Letters Combine" FontFamily="casual" BackgroundColor="#CCE0F5" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+            </Frame>
+            <Frame Margin="5,2,5,4" Grid.Row="4"
+                   BackgroundColor="White" OutlineColor="Black" Padding="1" HasShadow="True">
+                <Button HorizontalOptions="Fill" Clicked="ProgressClick"
+                       Text="Progress" FontFamily="casual" BackgroundColor="#CCE0F5" TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+            </Frame>
+            </Grid>
         <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
                Text="EzAmir" BackgroundColor="#FF0066CC" TextColor="White" FontSize="20" FontAttributes="Bold" FontFamily="cursive" />
     </Grid>
