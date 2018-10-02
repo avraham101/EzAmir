@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Amrious2
+namespace Amrious2.Presentaion
 {
     public class WordsGroupItem
     {

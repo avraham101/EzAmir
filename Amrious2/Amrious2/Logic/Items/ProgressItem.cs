@@ -11,13 +11,15 @@ namespace Amrious2.Logic.Items
         private int wordsmastered;
         private int wordsunmastered;
         private int seen;
+        private int unseen;
 
-        public ProgressItem(int words,int wordsmastered,int wordsunmastered,int seen)
+        public ProgressItem(int words,int wordsmastered,int wordsunmastered,int seen, int unseen)
         {
             this.words = words;
             this.wordsmastered = wordsmastered;
             this.wordsunmastered = wordsunmastered;
             this.seen = seen;
+            this.unseen = unseen;
         }
 
         //Gettets
@@ -39,6 +41,11 @@ namespace Amrious2.Logic.Items
         public int WordsSeen
         {
             get { return seen; }
+        }
+
+        public int WordsUnSeen
+        {
+            get { return unseen; }
         }
     }
 }

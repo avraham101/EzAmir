@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Items\ProgressItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\Items\Word.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logic\WordsLogic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Binders\BinderProgressPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Binders\BinderWordsPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Binders\BinderMainPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Presentaion\Binders\BinderWordLearning.cs" />

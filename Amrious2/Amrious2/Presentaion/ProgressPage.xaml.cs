@@ -13,10 +13,14 @@ namespace Amrious2.Presentaion
 	public partial class ProgressPage : ContentPage
 	{
         private WordsLogic logicer;
-		public ProgressPage (WordsLogic logicer)
+        private BinderProgressPage binder;
+
+        public ProgressPage (WordsLogic logicer)
 		{
             this.logicer = logicer;
-			InitializeComponent();
+            this.BindingContext = binder;
+            InitializeComponent();
 		}
-	}
+
+    }
 }
